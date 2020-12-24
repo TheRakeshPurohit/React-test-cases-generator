@@ -1,10 +1,10 @@
 # VSCode-TRP-RTCG README
 
-This is the README for your extension "VSCode-TRP-RTCG". After writing up a brief description, we recommend including the following sections.
+This is the README for your extension "VSCode-TRP-RTCG".
 
 ## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+This Extension will scan your src/components directory of React Project inside VSCode workspace and It will generate test cases for each components.
 
 For example if there is an image subfolder under your extension project workspace:
 
@@ -14,7 +14,11 @@ For example if there is an image subfolder under your extension project workspac
 
 ## Requirements
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+ 1. Visual Studio Code
+
+ 2. React project
+
+ 3. And This Extension (Obviously !)
 
 ## Extension Settings
 
