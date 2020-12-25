@@ -10,14 +10,18 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onCommand:VSCode-TRP-RTCG.helloWorld"
+		"onCommand:VSCode-TRP-RTCG.helloWorld",
+		"onCommand:VSCode-TRP-RTCG.generateTests"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
-		"commands": [
-			{
+		"commands": [{
 				"command": "VSCode-TRP-RTCG.helloWorld",
 				"title": "Hello World"
+			},
+			{
+				"command": "VSCode-TRP-RTCG.generateTests",
+				"title": "Generate Tests"
 			}
 		]
 	},
