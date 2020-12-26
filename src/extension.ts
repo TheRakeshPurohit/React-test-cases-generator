@@ -29,6 +29,17 @@ export function activate(context: vscode.ExtensionContext) {
 			let a = vscode.workspace.findFiles("/src/components/*.js");
 			vscode.window.showInformationMessage(a.toString());
 			vscode.window.showInformationMessage('Generating Tests for you !');
+
+			let reactTestCases = vscode.window.createOutputChannel("ReactTestCases");
+
+    //Write to output.
+    reactTestCases.appendLine("d" + Promise.resolve(a));
+		// 	fs.readdir("/src/components/*.js", (err, files: string[]) => {
+        //     files.forEach((file: path) => {
+        //         const uri = vscode.Uri.file(file);
+        //         console.log(uri);
+        //     });
+        // });
 		} else {
 			vscode.window.showInformationMessage("No Workspace Found !");
 		}
