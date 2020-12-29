@@ -33,7 +33,7 @@ export function activate(context: vscode.ExtensionContext) {
         // Display a message box to the user
         vscode.window.showInformationMessage("Scanning src/components");
         let a = await vscode.workspace.findFiles(
-          "**/src/**/*.js",
+          "**/src/components/*.js",
           "/node_modules/",
           50
         );
@@ -44,10 +44,14 @@ export function activate(context: vscode.ExtensionContext) {
           "ReactTestCases"
         );
 
-        if (a.length > 0 && vscode.workspace.workspaceFolders) {
+        if (
+          a.length > 0 &&
+          vscode.workspace.workspaceFolders &&
+          vscode.workspace.workspaceFolders.length > 0
+        ) {
           const testDirPath = vscode.Uri.parse(
             vscode.workspace.workspaceFolders[0].uri.path.toString() +
-              "/__tests__"
+              "/src/__tests__"
           );
 
           vscode.workspace.fs.createDirectory(testDirPath);
@@ -57,20 +61,30 @@ export function activate(context: vscode.ExtensionContext) {
           // });
           a.forEach((a) => {
             let home = last(split(a.path, "/"));
+
+            home = home?.split(".").slice(0, -1).join(".");
             console.log(home);
-            if (a.path.includes("index")) {
-              vscode.window.showInformationMessage("Got an Index file !");
+
+            if (["index", "test", "Test"].includes(a.path)) {
+              //vscode.window.showInformationMessage("Got an Index file !");
             } else {
-              const wsedit = new vscode.WorkspaceEdit();
-              const wsPath = vscode.workspace.workspaceFolders[0].uri.fsPath; // gets the path of the first workspace folder
-              const filePath = vscode.Uri.file(wsPath + "/hello/world.md");
-              vscode.window.showInformationMessage(filePath.toString());
-              wsedit.createFile(filePath, { ignoreIfExists: true });
-              vscode.workspace.applyEdit(wsedit);
-              vscode.window.showInformationMessage(
-                "Created a new file: hello/world.md"
-              );
-              reactTestCases.append("\n" + last(split(a.path, "/")));
+              if (
+                vscode.workspace.workspaceFolders &&
+                vscode.workspace.workspaceFolders.length > 0
+              ) {
+                const wsedit = new vscode.WorkspaceEdit();
+                const wsPath = vscode.workspace.workspaceFolders[0].uri.fsPath; // gets the path of the first workspace folder
+                const filePath = vscode.Uri.file(
+                  wsPath + "/src/__tests__/" + home + ".test.js"
+                );
+                vscode.window.showInformationMessage(filePath.toString());
+                wsedit.createFile(filePath, { ignoreIfExists: true });
+                vscode.workspace.applyEdit(wsedit);
+                vscode.window.showInformationMessage(
+                  "Created a new file: hello/world.md"
+                );
+                reactTestCases.append("\n" + last(split(a.path, "/")));
+              }
             }
           });
           vscode.window.showInformationMessage("Ready to Test !");
